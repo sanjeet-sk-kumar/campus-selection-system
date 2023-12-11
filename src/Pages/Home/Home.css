@@ -1,0 +1,13 @@
+.home-body-container{
+    display: flex;
+    padding: 5px;
+    .home-body-student{
+        width: 25%;
+    }
+    .home-body-advance{
+        width: 50%;
+    }
+    .home-body-recruter{
+        width: 25%;
+    }
+}
