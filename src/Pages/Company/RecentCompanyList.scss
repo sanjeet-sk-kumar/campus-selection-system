@@ -1,0 +1,32 @@
+/* CompanyList.css */
+
+.company-list-container {
+  font-family: Arial, sans-serif;
+  margin: 20px auto;
+  max-width: 600px;
+}
+
+h2 {
+  margin-bottom: 15px;
+  text-align: center;
+  color: #333;
+}
+
+.company-list {
+  list-style: none;
+  padding: 0;
+}
+
+.company-item {
+  margin-bottom: 10px;
+}
+
+.company-link {
+  text-decoration: none;
+  color: #007bff;
+  transition: color 0.3s ease;
+}
+
+.company-link:hover {
+  color: #0056b3;
+}

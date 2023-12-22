@@ -1,11 +1,14 @@
 .home-body-container{
     display: flex;
     padding: 5px;
+    
     .home-body-student{
         width: 25%;
+        margin-right: 10px;
     }
     .home-body-advance{
         width: 50%;
+        margin-right: 10px;
     }
     .home-body-recruter{
         width: 25%;

@@ -1,7 +1,5 @@
-import Container from '@mui/material/Container';
-import React from 'react';
-import StudentHeader from '../../Components/Header/Header';
-import Typography from '@mui/material/Typography';
+import React from "react";
+import StudentHeader from "../../Components/Header/Header";
 
 const Student = () => {
   return (

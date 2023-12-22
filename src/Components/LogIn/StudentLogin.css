@@ -1,3 +1,6 @@
 .form-group{
     padding: 10px;
 }
+.student-login,.recruter-login{
+    margin-bottom: 10px;
+}

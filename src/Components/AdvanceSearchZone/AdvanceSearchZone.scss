@@ -1,0 +1,25 @@
+.advance-search-zone {
+  .MuiTextField-root {
+    margin-bottom: 10px; /* Optional: Adjust spacing */
+    .MuiInputBase-root {
+      height: 40px; /* Set desired height */
+      padding: 8px 12px; /* Optional: Adjust padding */
+    }
+  }
+
+  .MuiButton-root {
+    height: 40px; /* Set desired height */
+    padding: 8px 16px; /* Optional: Adjust padding */
+  }
+
+  .MuiFormControl-root {
+    .MuiInputLabel-root {
+      // color: rgba(#484848, 0.5);
+      font-family: "Roboto", sans-serif;
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 16px;
+      top: -5px !important;
+    }
+  }
+}

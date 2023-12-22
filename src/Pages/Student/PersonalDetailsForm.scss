@@ -1,0 +1,50 @@
+/* Basic Form Styling */
+.form-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 300px;
+  margin: 0 auto;
+
+  .MuiTextField-root {
+    margin-bottom: 10px; /* Optional: Adjust spacing */
+    .MuiInputBase-root {
+      height: 40px; /* Set desired height */
+      padding: 8px 12px; /* Optional: Adjust padding */
+    }
+  }
+
+  .MuiButton-root {
+    height: 40px; /* Set desired height */
+    padding: 8px 16px; /* Optional: Adjust padding */
+  }
+
+  .MuiFormControl-root {
+    .MuiInputLabel-root {
+      // color: rgba(#484848, 0.5);
+      font-family: "Roboto", sans-serif;
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 16px;
+      top: -5px !important;
+    }
+  }
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+}
+
+.error-message {
+  color: red;
+  font-size: 0.8rem;
+  margin-top: 0.2rem;
+}
+
+.form-buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: space-between;
+  margin-top: 1rem;
+}
