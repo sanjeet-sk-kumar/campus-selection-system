@@ -2,48 +2,49 @@ import "./CompanyRegistrationForm.scss";
 
 import { Button, TextField } from "@mui/material";
 import { Field, Form, Formik } from "formik";
-import React, { useState } from "react";
 
 import Paper from "@mui/material/Paper";
+import React from "react";
 import Typography from "@mui/material/Typography";
 
 const CompanyRegistrationForm = ({ setNotifications }) => {
-  const [message, setMessage] = useState(undefined);
   const handleSubmit = async (values, { resetForm }) => {
+    const companyData = {};
+    for (let key in values) {
+      const snakeKey = key.replace(
+        /[A-Z]/g,
+        (match) => `_${match.toLowerCase()}`
+      );
+      companyData[snakeKey] = values[key];
+    }
     try {
       const response = await fetch(
-        "http://localhost:3001/api/save-company-registration",
+        "http://localhost:5000/api/companies/register",
         {
           method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(values),
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(companyData),
         }
       );
 
+      const responseData = await response.json();
+      console.log(responseData, "responseData");
       if (response.ok) {
-        // Handle successful registration
-        setNotifications({
+        console.log("Company registered successfully:", responseData);
+        await setNotifications({
           info: "Company registration successful",
           severity: "success",
         });
-        setTimeout(() => {
-          setNotifications(null);
-        }, 5000);
         resetForm();
       } else {
-        // Handle registration error
-        setNotifications({
-          info: "Company registration failed",
-          severity: "error",
-        });
-        setTimeout(() => {
-          setNotifications(null);
-        }, 5000);
+        console.error("Registration failed:", responseData);
       }
     } catch (error) {
-      console.error("Error occurred while registering:", error.message);
+      console.error("Error during registration:", error);
+      await setNotifications({
+        info: `Error during registration: ${error}`,
+        severity: "error",
+      });
     }
   };
 

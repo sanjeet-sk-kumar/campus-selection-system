@@ -1,6 +1,5 @@
 import {
   Button,
-  Checkbox,
   FormControl,
   InputLabel,
   MenuItem,

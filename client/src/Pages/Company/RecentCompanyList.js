@@ -4,26 +4,28 @@ import React, { useEffect, useState } from "react";
 
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
-import axios from "axios";
 
 const RecentCompanyList = () => {
   const [recentCompanies, setRecentCompanies] = useState([]);
 
   useEffect(() => {
-    const fetchRecentCompanies = async () => {
+    const fetchCompanies = async () => {
       try {
-        const response = await axios.get(
-          "http://localhost:3001/api/get-recent-companies"
+        const response = await fetch(
+          "http://localhost:5000/api/companies/recent-companies"
         );
-        console.log(response);
-        setRecentCompanies(response?.data || []);
+        const data = await response.json();
+        console.log(data, "companies");
+        setRecentCompanies(data.companies);
       } catch (error) {
-        console.error("Error fetching recent companies:", error);
+        console.log(error.message);
       }
     };
 
-    fetchRecentCompanies();
+    fetchCompanies();
   }, []);
+
+  console.log(recentCompanies, "recent co");
 
   return (
     <>
@@ -41,9 +43,9 @@ const RecentCompanyList = () => {
           {/* <h2>Recent Company Registrations</h2> */}
           <ul className="company-list">
             {recentCompanies.map((company) => (
-              <li key={company?._id} className="company-item">
-                <a href={company.companyWebsite} className="company-link">
-                  {company?.companyName}
+              <li key={company?.id} className="company-item">
+                <a href={company.company_website} className="company-link">
+                  {company?.company_name}
                 </a>
               </li>
             ))}
