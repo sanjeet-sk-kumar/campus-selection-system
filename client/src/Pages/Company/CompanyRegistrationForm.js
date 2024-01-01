@@ -3,46 +3,58 @@ import "./CompanyRegistrationForm.scss";
 import { Button, TextField } from "@mui/material";
 import { Field, Form, Formik } from "formik";
 
+import Loader from "../../Components/Loader/Loader";
 import Paper from "@mui/material/Paper";
+import { REGISTER_COMPANY } from "../../queries/company";
 import React from "react";
 import Typography from "@mui/material/Typography";
+import { useMutation } from "@apollo/client";
 
 const CompanyRegistrationForm = ({ setNotifications }) => {
+  const [registerNewCompany, { loading }] = useMutation(REGISTER_COMPANY);
   const handleSubmit = async (values, { resetForm }) => {
-    const companyData = {};
-    for (let key in values) {
-      const snakeKey = key.replace(
-        /[A-Z]/g,
-        (match) => `_${match.toLowerCase()}`
-      );
-      companyData[snakeKey] = values[key];
-    }
     try {
-      const response = await fetch(
-        "http://localhost:5000/api/companies/register",
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(companyData),
-        }
-      );
+      const response = await registerNewCompany({
+        variables: {
+          companyData: {
+            companyName: values.companyName,
+            address: values.address,
+            city: values.city,
+            state: values.state,
+            pincode: values.pincode,
+            contactPersonName: values.contactPersonName,
+            mobile: values.mobile,
+            contactNo: values.contactNo,
+            emailId: values.email,
+            website: values.companyWebsite,
+            username: values.username,
+            password: values.password,
+          },
+        },
+        refetchQueries: ["GetRecentCompanies"],
+      });
 
-      const responseData = await response.json();
-      console.log(responseData, "responseData");
-      if (response.ok) {
-        console.log("Company registered successfully:", responseData);
+      console.log(response, "response");
+
+      if (response.data.registerCompany) {
+        console.log(
+          "Company registered successfully:",
+          response.data.registerCompany
+        );
+        // Handle successful registration
         await setNotifications({
           info: "Company registration successful",
           severity: "success",
         });
         resetForm();
       } else {
-        console.error("Registration failed:", responseData);
+        console.error("Registration failed");
       }
     } catch (error) {
-      console.error("Error during registration:", error);
+      console.error("Error during registration:", error.message);
+      // Handle registration error
       await setNotifications({
-        info: `Error during registration: ${error}`,
+        info: `Error during registration: ${error.message}`,
         severity: "error",
       });
     }
@@ -50,6 +62,7 @@ const CompanyRegistrationForm = ({ setNotifications }) => {
 
   return (
     <>
+      {loading && <Loader loading={loading} />}
       <Typography
         variant="h5"
         bgcolor={"#3C76D2"}

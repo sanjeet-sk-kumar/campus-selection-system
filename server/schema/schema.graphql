@@ -1,0 +1,91 @@
+type Company {
+  id: ID!
+  companyName: String!
+  address: String!
+  city: String
+  state: String
+  pincode: String
+  contactPersonName: String!
+  mobile: String!
+  contactNo: String
+  emailId: String
+  website: String
+  username: String!
+  password: String!
+}
+
+input CompanyLoginInput {
+  username: String!
+  password: String!
+}
+
+type CompanyLoginResponse {
+  token: String
+  company: Company
+}
+
+input CreateCompanyInput {
+  companyName: String!
+  address: String!
+  city: String
+  state: String
+  pincode: String
+  contactPersonName: String!
+  mobile: String!
+  contactNo: String
+  emailId: String
+  website: String
+  username: String!
+  password: String!
+}
+
+input CreateJobInput {
+  companyId: Int!
+  jobCategory: String!
+  requiredSkill: String!
+  role: String!
+  minQualification: String!
+  extraSkill: String
+  maxAge: Int
+  expectedSalary: String
+  jobLocation: String!
+  workingHour: String!
+  jobDescription: String!
+  #lastApplyDate: DateTime!
+  #entryDate: DateTime!
+}
+
+type Job {
+  jobId: Int!
+  companyId: Int!
+  jobCategory: String!
+  requiredSkill: String!
+  role: String!
+  minQualification: String!
+  extraSkill: String
+  maxAge: Int
+  expectedSalary: Float
+  jobLocation: String!
+  #workingHour: String!
+  #jobDescription: String!
+  #lastApplyDate: DateTime!
+  #entryDate: DateTime!
+  # Add other fields as needed
+}
+
+type JobResponse {
+  success: Boolean!
+  message: String
+  job: Job
+}
+
+type Query {
+  companies: [Company]!
+  recentCompanies(limit: Int = 5): [Company!]!
+}
+
+type Mutation {
+  registerCompany(companyData: CreateCompanyInput!): Company!
+  companyLogin(credential: CompanyLoginInput!): CompanyLoginResponse
+  addJob(jobData: CreateJobInput!): Job!
+}

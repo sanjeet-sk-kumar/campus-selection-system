@@ -7,6 +7,7 @@ import Button from "@mui/material/Button";
 import Link from "@mui/material/Link";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
+import { useCompany } from "../../context/companyContext";
 
 const formContainerStyle = {
   display: "flex",
@@ -31,15 +32,12 @@ const buttonStyle = {
   marginTop: "16px",
 };
 const StudentLogin = ({ setIsNewStudent, setIsNewCompany }) => {
-  const [email, setEmail] = useState("");
+  const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
-
-  const handleLogin = (e) => {
+  const { companyLogin } = useCompany();
+  const handleLogin = async (e) => {
     e.preventDefault();
-    // Handle login logic here
-    console.log("Email:", email);
-    console.log("Password:", password);
-    // Implement login functionality using your authentication mechanism
+    companyLogin(userName, password);
   };
 
   const handleForgotPassword = () => {
@@ -68,13 +66,13 @@ const StudentLogin = ({ setIsNewStudent, setIsNewCompany }) => {
         <form style={formStyle} onSubmit={handleLogin}>
           <div className="form-group">
             <TextField
-              type="email"
-              label="Email"
+              type="text"
+              label="Username"
               variant="outlined"
               fullWidth
               // margin="normal"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              value={userName}
+              onChange={(e) => setUserName(e.target.value)}
             />
             <TextField
               type="password"
