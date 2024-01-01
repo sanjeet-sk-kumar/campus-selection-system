@@ -18,6 +18,7 @@ import {
 } from "../../.config";
 
 import { ADD_JOB } from "../../queries/company";
+import Loader from "../Loader/Loader";
 import Paper from "@mui/material/Paper";
 import React from "react";
 import Typography from "@mui/material/Typography";
@@ -26,7 +27,7 @@ import { useMutation } from "@apollo/client";
 
 const AddJob = () => {
   const { company } = useCompany();
-  const [addJob] = useMutation(ADD_JOB);
+  const [addJob, { loading }] = useMutation(ADD_JOB);
   console.log(company, "company");
   const initialValues = {
     companyName: company?.companyName,
@@ -51,6 +52,7 @@ const AddJob = () => {
             companyId: +company.id,
           },
         },
+        refetchQueries: ["PostedJob"],
       });
       console.log("Job added:", data.addJob);
       resetForm();
@@ -61,6 +63,7 @@ const AddJob = () => {
 
   return (
     <Container maxWidth="100%">
+      {loading && <Loader loading={loading} />}
       <Typography
         variant="h5"
         bgcolor={"#3C76D2"}

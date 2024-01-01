@@ -23,6 +23,21 @@ const resolvers = {
         throw new Error("Error fetching recent companies");
       }
     },
+    postedJobs: async (_, { companyId }) => {
+      try {
+        // Fetch all posted jobs from the database using Prisma
+        const postedJobs = await prisma.job.findMany({
+          where: {
+            companyId,
+          },
+        });
+
+        return postedJobs;
+      } catch (error) {
+        console.error("Error fetching posted jobs:", error);
+        throw new Error("Failed to fetch posted jobs");
+      }
+    },
   },
   Mutation: {
     registerCompany: async (_, { companyData }) => {
@@ -126,7 +141,7 @@ const resolvers = {
           lastApplyDate,
           entryDate,
         } = jobData;
-
+        console.log(prisma, "prisma");
         const newJob = await prisma.job.create({
           data: {
             company: { connect: { id: companyId } },

@@ -46,4 +46,7 @@ model Job {
   jobDescription   String
   lastApplyDate    DateTime
   entryDate        DateTime
+  createdAt        DateTime            @default(now())
+
+  @@map(name: "job")
 }

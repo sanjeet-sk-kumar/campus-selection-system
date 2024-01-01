@@ -56,7 +56,7 @@ input CreateJobInput {
 }
 
 type Job {
-  jobId: Int!
+  jobid: Int!
   companyId: Int!
   jobCategory: String!
   requiredSkill: String!
@@ -82,6 +82,7 @@ type JobResponse {
 type Query {
   companies: [Company]!
   recentCompanies(limit: Int = 5): [Company!]!
+  postedJobs(companyId: Int!): [Job!]!
 }
 
 type Mutation {

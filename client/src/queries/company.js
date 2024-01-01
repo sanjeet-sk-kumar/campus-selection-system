@@ -41,3 +41,15 @@ export const ADD_JOB = gql`
     }
   }
 `;
+
+export const POSTED_JOB = gql`
+  query PostedJob($companyId: Int!) {
+    postedJobs(companyId: $companyId) {
+      requiredSkill
+      minQualification
+      expectedSalary
+      jobLocation
+      jobCategory
+    }
+  }
+`;
